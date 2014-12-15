@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="tictactoeApp">
+<head>
+	<!-- Title -->
+	<title>Tic Tac Toe</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+
+	<!-- Firebase -->
+	<script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+
+	<!-- AngularFire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+
+	<!-- JS -->
+	<script src="js/main.js"></script>
+	<script src="js/GameBoard.js"></script>
+	<script src="js/gameController.js"></script>
+
+</head>
+
+<body ng-controller="gameController as game">
+
+	<!-- Winner -->
+    <h1 class="winner">{{ game.activeBoard.game.winner }}</h1>
+
+    <!-- Display Total Player Count -->
+    <h3 class="playercount">Total Players: {{ game.activeBoard.lobby.numPlayers }}</h3>
+   	
+   	<!-- Score Board -->
+   	<table class="score">
+   		<tr>
+	   		<td id="xWins">Player 1</td>
+	   		<td id="oWins">Player 2</td>
+	   		<td id="tie">Tie Games</td>
+	   		<td id="xmoves">Player 1 Moves</td>
+	   		<td id="omoves">Player 2 Moves</td>
+	   	</tr>
+	   	<tr>
+		    <td id="xWins">{{ game.activeBoard.game.playerScoreX }}</td>
+		    <td id="oWins">{{ game.activeBoard.game.playerScoreO }}</td>
+	    	<td id="tie">{{ game.activeBoard.game.playerTie }}</td>
+	    	<td id="xmoves">{{ game.activeBoard.game.playerXmove }}</td>
+	    	<td id="omoves">{{ game.activeBoard.game.playerOmove }}</td>
+	    </tr>
+	</table>
+
+	<!-- Board -->
+	<section id="active-board">
+		<div class="board">
+			<div class="board-tile"
+				ng-repeat="tile in game.activeBoard.game.fireGame track by $index"
+				ng-click="game.activeBoard.toggleTile($index)"
+				ng-class="game.activeBoard.getTileState($index)">
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
